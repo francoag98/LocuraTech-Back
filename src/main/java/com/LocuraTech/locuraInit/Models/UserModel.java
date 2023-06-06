@@ -1,21 +1,28 @@
 package com.LocuraTech.locuraInit.Models;
 
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collation = "Clientes")
 public class UserModel {
     private String name;
     private String email;
     private String password;
-    private String ciudad;
-    private int telefono;
+    private String phone;
+    private String address;
+    private String city;
+    private String state;
+    private String lastName;
 
-    public UserModel() {
-    }
-
-    public UserModel(String name, String email, String password, String ciudad, int telefono) {
+    public UserModel(String name, String email, String password, String phone, String address, String city, String state, String lastName) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.ciudad = ciudad;
-        this.telefono = telefono;
+        this.phone = phone;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.lastName = lastName;
     }
 
     public String getName() {
@@ -42,19 +49,43 @@ public class UserModel {
         this.password = password;
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public int getTelefono() {
-        return telefono;
+    public String getAddress() {
+        return address;
     }
 
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
