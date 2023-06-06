@@ -7,8 +7,6 @@ public class UserModel {
     private String ciudad;
     private int telefono;
 
-    public UserModel() {
-    }
 
     public UserModel(String name, String email, String password, String ciudad, int telefono) {
         this.name = name;
