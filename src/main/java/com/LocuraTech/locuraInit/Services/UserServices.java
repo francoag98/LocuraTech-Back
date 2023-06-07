@@ -29,7 +29,7 @@ public class UserServices {
         return userRepository.save(user);
     }
     public UserModel getUserByName (String name){
-        Query query = new Query().addCriteria(Criteria.where("name").is("Franco"));
+        Query query = new Query().addCriteria(Criteria.where("name").is(name).regex("$regex", "i"));
         UserModel userFound = mongoTemplate.findOne(query, UserModel.class);
         return userFound;
     }
