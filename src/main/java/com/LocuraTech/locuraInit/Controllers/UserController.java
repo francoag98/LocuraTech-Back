@@ -27,7 +27,15 @@ public class UserController {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
+    @GetMapping("/{name}")
+    public ResponseEntity<?> getUserByName(@PathVariable("name") String name){
+        try{
+            UserModel userFound = userServices.getUserByName(name);
+            return new ResponseEntity<UserModel>(userFound, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.NO_CONTENT);
+        }
+    }
     @PostMapping
     public ResponseEntity<?> saveUser(@RequestBody UserModel user){
         try {

@@ -2,11 +2,13 @@ package com.LocuraTech.locuraInit.Models;
 
 
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collection = "Users")
 public class UserModel {
-    @MongoId
+    @MongoId(FieldType.OBJECT_ID)
     private String id;
     private String name;
     private String email;
@@ -15,6 +17,7 @@ public class UserModel {
     private String address;
     private String city;
     private String state;
+
     private String lastName;
 
     public UserModel(String name, String id, String email, String password, String phone, String address, String city, String state, String lastName) {
