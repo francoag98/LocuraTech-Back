@@ -2,9 +2,12 @@ package com.LocuraTech.locuraInit.Models;
 
 
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Document(collation = "Clientes")
+@Document(collection = "Users")
 public class UserModel {
+    @MongoId
+    private String id;
     private String name;
     private String email;
     private String password;
@@ -14,7 +17,8 @@ public class UserModel {
     private String state;
     private String lastName;
 
-    public UserModel(String name, String email, String password, String phone, String address, String city, String state, String lastName) {
+    public UserModel(String name, String id, String email, String password, String phone, String address, String city, String state, String lastName) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -25,12 +29,20 @@ public class UserModel {
         this.lastName = lastName;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -87,5 +99,20 @@ public class UserModel {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }
