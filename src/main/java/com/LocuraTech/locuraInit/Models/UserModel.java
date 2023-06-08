@@ -1,15 +1,15 @@
 package com.LocuraTech.locuraInit.Models;
 
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+import org.springframework.data.mongodb.core.mapping.*;
+
+import java.util.ArrayList;
 
 @Document(collection = "Users")
 public class UserModel {
-    @MongoId(FieldType.OBJECT_ID)
+    @MongoId(value = FieldType.OBJECT_ID)
     private String id;
+
     private String name;
     private String email;
     private String password;
@@ -17,7 +17,8 @@ public class UserModel {
     private String address;
     private String city;
     private String state;
-
+    private ArrayList<PublicacionModel> postModel = new ArrayList<>() {
+    };
     private String lastName;
 
     public UserModel(String name, String id, String email, String password, String phone, String address, String city, String state, String lastName) {
@@ -30,6 +31,17 @@ public class UserModel {
         this.city = city;
         this.state = state;
         this.lastName = lastName;
+    }
+
+    public UserModel() {
+    }
+
+    public ArrayList<PublicacionModel> getPublicacionModel() {
+        return this.postModel;
+    }
+
+    public void setPublicacionModel(PublicacionModel body) {
+        this.postModel.add(body);
     }
 
     public String getId() {
