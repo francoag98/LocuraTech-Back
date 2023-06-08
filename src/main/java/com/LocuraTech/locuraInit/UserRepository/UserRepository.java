@@ -9,5 +9,6 @@ import java.util.ArrayList;
 
 @Repository
 public interface UserRepository extends MongoRepository<UserModel, String> {
-
+    @Query("{'name': {'$regex': '?0', '$options': 'i'}}")
+    ArrayList<UserModel> getUser(String name);
 }

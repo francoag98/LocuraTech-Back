@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
     @Autowired
-    private UserServices userServices;
+    UserServices userServices;
 
     @GetMapping
     public ResponseEntity<?> getUsers(){
@@ -27,15 +26,20 @@ public class UserController {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/{name}")
-    public ResponseEntity<?> getUserByName(@PathVariable("name") String name){
+
+    @GetMapping("/getByName/{name}")
+    public ResponseEntity<?> getUserByName(@PathVariable("name") String name) {
         try{
-            UserModel userFound = userServices.getUserByName(name);
-            return new ResponseEntity<UserModel>(userFound, HttpStatus.OK);
+            ArrayList<UserModel> userFound = userServices.getUserByNameIndiferent(name);
+            if (userFound.size() == 0){
+                return new ResponseEntity<String>("no se pudo obtener resultados", HttpStatus.FORBIDDEN);
+            }
+            return new ResponseEntity<ArrayList<UserModel>>(userFound, HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(e.getStackTrace(), HttpStatus.BAD_REQUEST);
         }
     }
+
     @PostMapping
     public ResponseEntity<?> saveUser(@RequestBody UserModel user){
         try {
@@ -44,6 +48,19 @@ public class UserController {
             return new ResponseEntity<UserModel>(user, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable("id") String id) {
+        try{
+            UserModel userFound = userServices.getUserById(id);
+            if (userFound.getId().length() == 0){
+                return new ResponseEntity<String>("no se pudo obtener resultados con el id: " + id, HttpStatus.FORBIDDEN);
+            }else {
+                return new ResponseEntity<UserModel>(userFound, HttpStatus.OK);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
