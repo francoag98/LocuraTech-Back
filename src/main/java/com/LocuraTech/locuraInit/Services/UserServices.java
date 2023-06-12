@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class UserServices {
+public class UserServices{
     @Autowired
     UserRepository userRepository;
     private final MongoTemplate mongoTemplate;

@@ -1,19 +1,16 @@
 package com.LocuraTech.locuraInit.Models;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+import com.fasterxml.jackson.annotation.*;
+import org.springframework.data.mongodb.core.mapping.*;
 
 import java.util.Date;
-import java.util.Optional;
 
 @Document(collection = "Publicaciones")
 public class PublicacionModel {
     @MongoId(value = FieldType.OBJECT_ID)
     private String id;
-    @DocumentReference(collection = "Users")
-    private Optional<UserModel> user;
+
+    private String user;
     private Date createdAt;
     private String title;
     private String description;
@@ -27,7 +24,7 @@ public class PublicacionModel {
     public String toString() {
         return "PublicacionModel{" +
                 "id='" + id + '\'' +
-                ", user=" + user +
+                ", user='" + user + '\'' +
                 ", createdAt=" + createdAt +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
@@ -38,9 +35,9 @@ public class PublicacionModel {
     public PublicacionModel() {
     }
 
-    public PublicacionModel(String id, UserModel user, Date createdAt, String title, String description, String image) {
+    public PublicacionModel(String id, String user, Date createdAt, String title, String description, String image) {
         this.id = id;
-        this.user = Optional.ofNullable(user);
+        this.user = user;
         this.createdAt = createdAt;
         this.title = title;
         this.description = description;
@@ -51,11 +48,11 @@ public class PublicacionModel {
         this.id = id;
     }
 
-    public Optional<UserModel> getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(Optional<UserModel> user) {
+    public void setUser(String user) {
         this.user = user;
     }
 

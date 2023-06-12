@@ -1,9 +1,11 @@
 package com.LocuraTech.locuraInit.Models;
 
 
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.data.mongodb.core.mapping.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Document(collection = "Users")
 public class UserModel {
@@ -17,11 +19,12 @@ public class UserModel {
     private String address;
     private String city;
     private String state;
-    private ArrayList<PublicacionModel> postModel = new ArrayList<>() {
-    };
+
+    @DocumentReference(collection = "Publicaciones")
+    private  List<PublicacionModel> postModel = new ArrayList<>();
     private String lastName;
 
-    public UserModel(String name, String id, String email, String password, String phone, String address, String city, String state, String lastName) {
+    public UserModel(String name, String id, String email, String password, String phone, String address, String city, String state, String lastName, List<PublicacionModel> postModel) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -31,17 +34,18 @@ public class UserModel {
         this.city = city;
         this.state = state;
         this.lastName = lastName;
+        this.postModel = postModel;
     }
 
     public UserModel() {
     }
 
-    public ArrayList<PublicacionModel> getPublicacionModel() {
-        return this.postModel;
+    public List<PublicacionModel> getPostModel() {
+        return postModel;
     }
 
-    public void setPublicacionModel(PublicacionModel body) {
-        this.postModel.add(body);
+    public void setPostModel(List<PublicacionModel> postModel) {
+        this.postModel = postModel;
     }
 
     public String getId() {
@@ -127,6 +131,7 @@ public class UserModel {
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
+                ", postModel=" + postModel +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
